@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>電卓</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        /* 電卓全体の四角い枠 */
+        .calculator {
+            width: 300px;
+            padding: 20px;
+            border: 3px solid black;
+            border-radius: 10px;
+            background-color: #eeeeee;
+        }
+
+        /* 計算結果を表示する部分 */
+        #display {
+            width: 100%;
+            height: 60px;
+            font-size: 30px;
+            text-align: right;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        /* ボタンを並べる */
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        /* ボタン */
+        button {
+            height: 60px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="calculator">
+
+    <!-- 表示画面 -->
+    <input type="text" id="display" value="0" readonly>
+
+    <!-- ボタン -->
+    <div class="buttons">
+
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="inputValue('/')">÷</button>
+        <button onclick="inputValue('*')">×</button>
+        <button onclick="deleteValue()">←</button>
+       
+        <button onclick="inputValue('7')">7</button>
+        <button onclick="inputValue('8')">8</button>
+        <button onclick="inputValue('9')">9</button>
+        <button onclick="inputValue('-')">−</button>
+
+        <button onclick="inputValue('4')">4</button>
+        <button onclick="inputValue('5')">5</button>
+        <button onclick="inputValue('6')">6</button>
+        <button onclick="inputValue('+')">＋</button>
+
+        <button onclick="inputValue('1')">1</button>
+        <button onclick="inputValue('2')">2</button>
+        <button onclick="inputValue('3')">3</button>
+        <button onclick="calculate()">＝</button>
+
+        <button onclick="inputValue('0')">0</button>
+	<button onclick="inputValue('00')">00</button>
+	<button onclick="inputValue('000')">000</button>
+        <button onclick="inputValue('.')">.</button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // 数字・記号を入力
+    function inputValue(value) {
+
+        const display =
+            document.getElementById("display");
+
+        if (display.value === "0") {
+
+            display.value = value;
+
+        } else {
+
+            display.value += value;
+
+        }
+
+    }
+
+
+    // Cボタン
+    function clearDisplay() {
+
+        document.getElementById("display").value = "0";
+
+    }
+
+
+    // 1文字削除
+    function deleteValue() {
+
+        const display =
+            document.getElementById("display");
+
+        display.value =
+            display.value.slice(0, -1);
+
+        if (display.value === "") {
+
+            display.value = "0";
+
+        }
+
+    }
+
+
+    // 計算
+    function calculate() {
+
+        const display =
+            document.getElementById("display");
+
+        try {
+
+            display.value =
+                eval(display.value);
+
+        } catch {
+
+            display.value = "Error";
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
